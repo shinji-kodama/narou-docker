@@ -3,7 +3,7 @@ FROM ruby:3.4-slim
 LABEL maintainer="whiteleaf <2nd.leaf@gmail.com>"
 
 ENV NAROU_VERSION=3.9.1
-ENV AOZORAEPUB3_VERSION=1.1.0b46
+ENV AOZORAEPUB3_VERSION=1.1.0b55Q
 ENV AOZORAEPUB3_FILE=AozoraEpub3-${AOZORAEPUB3_VERSION}
 
 # フォーク先のリポジトリ・ブランチを指定する場合は以下の環境変数を設定
@@ -12,17 +12,23 @@ ENV NAROU_BRANCH="patch-3"
 
 WORKDIR /temp
 
+# 日本のミラーサーバーを使用する
+# RUN sed -i.bak -e "s/http:\/\/deb\.debian\.org\/debian$/http:\/\/ftp\.\jp\.debian\.org\/debian/g" /etc/apt/sources.list.d/debian.sources
+
 RUN set -x \
      ###############################
      # Install required packages
      ###############################
      && apt-get update \
-     && apt-get install -y wget unzip default-jre build-essential make gcc git \
+     && apt-get install -y wget unzip \
+      default-jre \
+     #  openjdk-8-jre \
+      build-essential make gcc git \
      #
      #############################
      # install AozoraEpub3
      #############################
-     && wget https://github.com/kyukyunyorituryo/AozoraEpub3/releases/download/${AOZORAEPUB3_VERSION}Q/${AOZORAEPUB3_FILE}.zip \
+     && wget https://github.com/kyukyunyorituryo/AozoraEpub3/releases/download/${AOZORAEPUB3_VERSION}/${AOZORAEPUB3_FILE}.zip \
      && mkdir /aozoraepub3 \
      && unzip -q ${AOZORAEPUB3_FILE}.zip -d /aozoraepub3 \
      #
