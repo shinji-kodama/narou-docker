@@ -63,7 +63,7 @@ RUN set -x \
      # setting AozoraEpub3
      #############################
      && mkdir .narousetting \
-     && narou init -p /aozoraepub3 -l 1.8 \
+     && narou init -p /aozoraepub3/${AOZORAEPUB3_VERSION} -l 1.8 \
      && rm -rf /temp
 
 WORKDIR /novel
